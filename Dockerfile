@@ -1,9 +1,11 @@
-FROM eclipse-temurin:21-jre
+FROM tomcat:10.1
 
 WORKDIR /app
 
-COPY target/mavenpratice-1.0-SNAPSHOT.jar app.jar
+RUN rm -rf /usr/local/tomcat/webapps/*
+
+COPY target/mavenpratice-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["catalina.sh", "run"]
